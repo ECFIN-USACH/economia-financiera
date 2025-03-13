@@ -30,7 +30,7 @@ El curso de Economía Financiera combina un enfoque **teórico-formal** con apli
 El curso se divide en los siguientes módulos:
 
 - **Módulo 1: Repaso de Renta Fija**  
-  - Conceptos básicos, teorías de tasas, análisis de bonos y herramientas cuantitativas (pricing, risk, mark-to-market).
+  - Conceptos básicos, teorías de tasas, análisis de bonos y herramientas cuantitativas (pricing, risk, mark-to-market (MtoM), etc.).
 
 - **Módulo 2: Contratos Forward**  
   - Fundamentos, creación y valoración de contratos forward, y análisis de riesgos.
