@@ -1,11 +1,14 @@
 # Economía Financiera - USACH - 2025
 
+## Departamento de Economía 
+## Facultad de Economía y Negocios
+
 El objetivo de este repositorio es centralizar y organizar todos los recursos del curso, incluyendo:
 
 - **Plan de Estudios y Cronograma**: Documentos que detallan el contenido de cada módulo, fechas y actividades.
 - **Materiales de Clase**: Presentaciones, notas, y ejercicios teóricos y prácticos.
 - **Ejercicios Prácticos y Scripts**: Recursos para simulaciones, análisis cuantitativos y ejercicios interactivos.
-- **Recursos Complementarios**: Enlaces a bibliografía, artículos, y material de referencia basado en estándares internacionales como CFA/FRM.
+- **Recursos Complementarios**: Enlaces a bibliografía, artículos, y material de referencia basado en certificaciones internacionales como CFA/FRM.
 
 ## Equipo Docente
 
