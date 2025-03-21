@@ -17,9 +17,9 @@ El objetivo de este repositorio es centralizar y organizar todos los recursos de
 
 ## Contribución al perfil de egreso
 
-El busca que los alumnos comprendan las dinámicas de los instrumentos de renta fija y derivados más comunes. Entiendan la relevancia de los instrumentos en la industria nacional y mercados globales. Se busca que el alumno conozca las aplicaciones prácticas de estos conocimientos en Mesas de Dinero, ya sea como Operador, Trader, o Portfolio Manager, Fondos de Inversión, Corredores de Bolsa, Bancos, Mercados reales, Finanzas Corporativas en Gerencias de Research, Fintech, entre otras por el lado privado, mientras que por el lado público tenemos aplicaciones en Banco Central, Tesorería General de la República, Hacienda, Empresas estatales como Codelco, Bolsas de Comercio, entidades reguladores como CMF, etc.
+El busca que los alumnos comprendan las dinámicas de los instrumentos de renta fija y derivados más comunes. Entiendan la relevancia de los instrumentos en la industria nacional y mercados globales. Se busca que el alumno conozca las aplicaciones prácticas de estos conocimientos en Equipos de  Inversión y Finanzas, ya sea como Operador, Sales Trader, Portfolio Manager, etc. Además en distintos sectores de la industria financiera como Fondos de Inversión, Corredores de Bolsa, Bancos, Empresas del sector real, por otro lado estos conocimientos son necesarias en Finanzas Corporativas en los equipos de Research. Otros sectores como las Fintech, requieren de conocimientos teóricos sólidos y herramientas prácticas de programación e implementación de modelos y herramientas de gestión de inversiones y transacciones. Por otro lado, en el sector público tenemos aplicaciones en Banco Central, Tesorería General de la República, Ministerio de Hacienda, Empresas estatales como Codelco, EFE, Bolsas de Comercio, entidades reguladores como CMF, Superintendencia de Pensiones, etc.
 
-Se busca que el alumno sea capaz de comprender la diferencia entre valuation y pricing de los distintos instrumentos del plain vanilla, tenga nociones de manejo de riesgos presentes en la industria, asi también realizar análisis de sensibilidad idóneos para el portfolio management. Esto a través de herramientras de programación como Python, herramientras estadísticas y econométricas para estimar y comprender parámetros de interés, incentivando el uso correcto de LLM's en el contexto de aprendizaje.
+Se busca que el alumno sea capaz de comprender la diferencia entre valuation y pricing de los distintos instrumentos del plain vanilla, tenga conocimientos básicos sobre manejo de los riesgos presentes en la industria, asi también sea capaz de realizar análisis de sensibilidad idóneos para la gestión de portafolios. Esto a través de herramientras de programación como Python, herramientras estadísticas y econométricas para estimar y comprender efectos de interés en la economía, incentivando el uso correcto de LLM's en el contexto de aprendizaje.
 
 Se busca comprender el contexto regulatorio nacional, los estándares internacionales como Basilea y las metodologías de contabilización de derivados según IFRS9.
 
@@ -43,10 +43,10 @@ El curso se divide en los siguientes módulos:
   - Fundamentos, creación y valoración de contratos forward, y análisis de riesgos.
 
 - **Módulo 3: Futuros**  
-  - Características, gestión del riesgo y comparación con forwards (contenido resumido por su similitud con Forward).
+  - Características, gestión del riesgo y comparación con instrumentos forward. Comprensión del rol de las Cámaras de Compensación (*Clearing House*) y su funcionamiento.
 
 - **Módulo 4: Opciones**  
-  - Nociones básicas, estrategias, y valoración (modelo Black-Scholes, métodos binomiales).
+  - Nociones básicas, estrategias de cobertura, pricing, y valuation (modelo binomial, modelo Black-Scholes-Merton).
 
 - **Módulo 5: Swaps**  
   - Conceptos, estructura, tipos, pricing y estrategias de cobertura.
