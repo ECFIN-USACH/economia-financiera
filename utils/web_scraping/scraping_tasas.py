@@ -8,8 +8,9 @@ Created on Tue Feb  4 00:26:42 2025
 """
 
 
+import os
 import re
-from typing import List, Tuple, Dict
+from typing import List, Tuple, Dict,Literal
 import pandas as pd
 import requests
 import matplotlib.pyplot as plt
@@ -424,16 +425,88 @@ def obtener_urls(swap: bool):
     return URL_PESOS, URL_UF
 
 
-# =============================================================================
-# BLOQUE PRINCIPAL
-# =============================================================================
+def save_curvas_spread_chile(
+    df_pesos: pd.DataFrame,
+    df_uf: pd.DataFrame,
+    variable: Literal['swap', 'bono'],
+    filepath: str = 'data/curvas_spread_chile.xlsx'
+) -> None:
+    """
+    Guarda los DataFrames de spread en pesos y en UF en una hoja de Excel,
+    unificando ambos por fecha.
 
-if __name__ == "__main__":
+    Parámetros
+    ----------
+    df_pesos : pd.DataFrame
+        Spread en pesos con índice de tipo datetime.
+    df_uf : pd.DataFrame
+        Spread en UF con índice de tipo datetime.
+    variable : {'swap', 'bono'}
+        Nombre de la hoja donde se volcarán los datos.
+    filepath : str, opcional
+        Ruta al archivo Excel (por defecto 'data/curvas_spread_chile.xlsx').
 
-    swap = False
+    Proceso
+    --------
+    1. Se realiza un outer join sobre el índice de fechas para conservar
+       todas las observaciones de ambos DataFrames.
+    2. Se renombran las columnas en caso de solapamiento usando sufijos.
+    3. Se ordena el índice cronológicamente.
+    4. Se crea la carpeta si no existe.
+    5. Se abre un ExcelWriter en modo 'append' (o 'write' si el archivo no existe)
+       y se vuelca el DataFrame combinado en la hoja indicada.
+    """
+    # 1. Unión de DataFrames por índice (fecha)
+    df_combined = df_pesos.join(
+        df_uf,
+        how='outer',
+    )
+
+    # 2. Ordenar por índice de fechas
+    df_combined.sort_index(inplace=True)
+
+    # 3. Asegurar que la carpeta de destino existe
+    carpeta = os.path.dirname(filepath)
+    if carpeta and not os.path.exists(carpeta):
+        os.makedirs(carpeta, exist_ok=True)
+
+    # 4. Guardar (o añadir) la hoja al Excel
+    #    - mode='a' para agregar al archivo existente
+    #    - mode='w' si aún no existía
+    mode = 'a' 
+    with pd.ExcelWriter(filepath, mode=mode, engine='openpyxl', if_sheet_exists='replace') as writer:
+        df_combined.to_excel(writer, sheet_name=variable)
+
+# Ejemplo de uso:
+
+def main():
+    
+    swap = True
     URL_PESOS, URL_UF = obtener_urls(swap=swap)
     # Ejemplo de consulta para varios años
-    years = [2024, 2025]  # por ejemplo
+    years = [
+        2005,
+        2006,
+        2007,
+        2008,
+        2009,
+        2010,
+        2011,
+        2012,
+        2013,
+        2014,
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022,
+        2023,
+        2024,
+        2025,
+        ]  # por ejemplo
 
     # Descarga y concatenación de datos
     df_pesos_raw = fetch_multiple_years(URL_PESOS, years)
@@ -454,16 +527,58 @@ if __name__ == "__main__":
     # Elegir una fecha (por ejemplo, la primera fecha disponible de cada grupo)
     # Para pesos:
     if not df_pesos.empty:
-        date = df_pesos.index[0]
-        date = df_pesos.index[-2]
-        date = pd.Timestamp("2024-12-13 00:00:00")
+        date = df_pesos.index[-1]
+        # date = df_pesos.index[-2]
+        # date = pd.Timestamp("2024-12-13 00:00:00")
         TITLE = "Bonos del Banco Central y Tesorería en Pesos"
         pivot_df = df_pesos.copy()
         plot_curve_for_date(pivot_df, tenor_dict, date, title=TITLE)
 
     # Para UF:
     if not df_uf.empty:
-        date = df_uf.index[0]
+        date = df_uf.index[-1]
+        # date = pd.Timestamp("2024-12-27 00:00:00")
+        TITLE = "Swap Cámara Promedio UF"
+        plot_curve_for_date(df_uf, tenor_dict, date, title=TITLE)
+
+    
+    save_curvas_spread_chile(df_pesos, df_uf, variable='swap')
+
+    swap = False
+    URL_PESOS, URL_UF = obtener_urls(swap=swap)
+
+    # Descarga y concatenación de datos
+    df_pesos_raw = fetch_multiple_years(URL_PESOS, years)
+    df_uf_raw = fetch_multiple_years(URL_UF, years)
+
+    # Unir ambos DataFrames
+    df_total = pd.concat([df_pesos_raw, df_uf_raw], ignore_index=True)
+
+    # Aplicar renombrado y extraer vencimientos
+    df_total, tenor_dict = apply_renaming(df_total, swap=swap)
+
+    # Generar pivot
+    pivot_df = pivot_data(df_total)
+
+    # Separar instrumentos en pesos y UF (según prefijo)
+    df_pesos, df_uf = separate_instruments(pivot_df, swap=swap)
+
+    # Elegir una fecha (por ejemplo, la primera fecha disponible de cada grupo)
+    # Para pesos:
+    if not df_pesos.empty:
+        date = df_pesos.index[-1]
+        # date = df_pesos.index[-2]
+        date = pd.Timestamp("2025-06-05 00:00:00")
+        TITLE = "Bonos del Banco Central y Tesorería en Pesos"
+        pivot_df = df_pesos.copy()
+        plot_curve_for_date(pivot_df, tenor_dict, date, title=TITLE)
+
+    # Para UF:
+    if not df_uf.empty:
+        date = df_uf.index[-1]
         date = pd.Timestamp("2024-12-27 00:00:00")
         TITLE = "Swap Cámara Promedio UF"
         plot_curve_for_date(df_uf, tenor_dict, date, title=TITLE)
+
+
+    save_curvas_spread_chile(df_pesos, df_uf, variable='bono')
